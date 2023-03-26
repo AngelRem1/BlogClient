@@ -27,7 +27,7 @@ const Login = () => {
       <main>
         <section>
           <div>
-            <p> Sign In To Start Making Blog Post! </p>
+            <h1> Sign In To Start Making Blog Post! </h1>
 
             <form>
               <div>
