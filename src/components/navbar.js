@@ -58,7 +58,7 @@ export default function Navbar() {
             <li className="nav-item">
               {logged ? (
                 <NavLink className="nav-link" to="/add">
-                  Create Record
+                  Create Entry
                 </NavLink>
               ) : (
                 <></>
