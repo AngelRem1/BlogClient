@@ -6,12 +6,16 @@ import { auth } from "../firebase";
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
 
-// We import NavLink to utilize the react router.
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Here, we display our Navbar
 export default function Navbar() {
+  const navigate = useNavigate();
   const [logged, setLogged] = useState(false);
+  const [hoverSign, setHoverSign] = useState(false);
+  const [hoverLog, setHoverLog] = useState(false);
+  const [hoverCreate, setHoverCreate] = useState(false);
+  const [hoverLogout, setHoverLogout] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -31,66 +35,166 @@ export default function Navbar() {
       .then(() => {
         // Sign-out successful.
         console.log("Signed out successfully");
+        navigate("/");
       })
       .catch((error) => {
         // An error happened.
         console.log(error);
       });
   };
+
+  const sign = {
+    color: hoverSign ? "black" : "#34495e",
+    padding: "10px 15px",
+    textTransform: "uppercase",
+    textAlign: "center",
+    display: "block",
+  };
+  const log = {
+    color: hoverLog ? "black" : "#34495e",
+    padding: "10px 15px",
+    textTransform: "uppercase",
+    textAlign: "center",
+    display: "block",
+  };
+  const create = {
+    color: hoverCreate ? "black" : "#34495e",
+    padding: "10px 15px",
+    textTransform: "uppercase",
+    textAlign: "center",
+    display: "block",
+  };
+  const logout = {
+    color: hoverLogout ? "black" : "#34495e",
+    padding: "10px 15px",
+    textTransform: "uppercase",
+    textAlign: "center",
+    display: "block",
+  };
+
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <NavLink className="navbar-brand" to="/"></NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+    <header style={nav}>
+      <h2 style={title} onClick={() => navigate("/")}>
+        {" "}
+        Angel's Blog{" "}
+      </h2>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item">
-              {logged ? (
-                <NavLink className="nav-link" to="/add">
-                  Create Entry
-                </NavLink>
-              ) : (
-                <></>
-              )}
+      {!logged ? (
+        <ul style={navComponents}>
+          <li
+            onMouseEnter={() => setHoverSign(true)}
+            onMouseLeave={() => setHoverSign(false)}
+            onClick={() => navigate("/signup")}
+          >
+            <div style={sign}>Sign Up</div>
+          </li>
+          <li
+            onMouseEnter={() => setHoverLog(true)}
+            onMouseLeave={() => setHoverLog(false)}
+            onClick={() => navigate("/login")}
+          >
+            <div style={log}>Login</div>
+          </li>
+        </ul>
+      ) : (
+        <ul style={navComponents}>
+          <li
+            onMouseEnter={() => setHoverCreate(true)}
+            onMouseLeave={() => setHoverCreate(false)}
+            onClick={() => navigate("/add")}
+          >
+            <div style={create}>Create Entry</div>
+          </li>
+          <li
+            onMouseEnter={() => setHoverLogout(true)}
+            onMouseLeave={() => setHoverLogout(false)}
+            onClick={() => handleLogout()}
+          >
+            <div style={logout}>Log Out</div>
+          </li>
+        </ul>
+      )}
+    </header>
+    // <div>
+    //   <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    //     <NavLink className="navbar-brand" to="/"></NavLink>
+    //     <button
+    //       className="navbar-toggler"
+    //       type="button"
+    //       data-toggle="collapse"
+    //       data-target="#navbarSupportedContent"
+    //       aria-controls="navbarSupportedContent"
+    //       aria-expanded="false"
+    //       aria-label="Toggle navigation"
+    //     >
+    //       <span className="navbar-toggler-icon"></span>
+    //     </button>
 
-              {!logged ? (
-                <NavLink className="nav-link" to="/signup">
-                  Sign Up
-                </NavLink>
-              ) : (
-                <></>
-              )}
+    //     <div className="collapse navbar-collapse" id="navbarSupportedContent">
+    //       <ul className="navbar-nav ml-auto">
+    //         <li className="nav-item">
+    //           {logged ? (
+    //             <>
+    //             <h1></h1>
+    //               <NavLink className="nav-link" to="/add">
+    //                 Create Entry
+    //               </NavLink>
+    //               <NavLink className="nav-link" onClick={handleLogout} to="/">
+    //                 Log Out
+    //               </NavLink>
+    //             </>
+    //           ) : (
+    //             <></>
+    //           )}
 
-              {!logged ? (
-                <NavLink className="nav-link" to="/login">
-                  Log In
-                </NavLink>
-              ) : (
-                <></>
-              )}
+    //           {!logged ? (
+    //             <>
+    //               <NavLink className="nav-link" to="/signup">
+    //                 Sign Up
+    //               </NavLink>
 
-              {logged ? (
-                <NavLink className="nav-link" onClick={handleLogout} to="/">
-                  Log Out
-                </NavLink>
-              ) : (
-                <></>
-              )}
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </div>
+    //               <NavLink className="nav-link" to="/login">
+    //                 Log In
+    //               </NavLink>
+    //             </>
+    //           ) : (
+    //             <></>
+    //           )}
+    //         </li>
+    //       </ul>
+    //     </div>
+    //   </nav>
+    // </div>
   );
 }
+
+const nav = {
+  display: "flex",
+  flexDirection: "row",
+  paddingTop: ".5em",
+  paddingBottom: ".5em",
+  border: "1px solid #a2a2a2",
+  backgroundColor: "#f4f4f4",
+  boxShadow: "0 0 40px rgba(0, 0, 0, 0.15)",
+  borderRadius: "5px",
+};
+
+const navComponents = {
+  display: "flex",
+  justifyContent: "flex-end",
+  width: "90%",
+  marginleft: "auto",
+  marginTop: "auto",
+  marginBottom: "auto",
+  fontSize: ".99em",
+  listStyle: "none",
+};
+
+// const link = {
+
+// };
+const title = {
+  fontSize: "1.45em",
+  marginTop: "auto",
+  marginBottom: "auto",
+};

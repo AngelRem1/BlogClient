@@ -1,11 +1,12 @@
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function JournalList() {
   const [journals, setJournals] = useState([]);
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -41,25 +42,28 @@ export default function JournalList() {
   const Journal = (props) => (
     <tr>
       <td> {props.journal.name} </td>
-      <td> {props.journal.entry} </td>
+      <td>
+        {" "}
+        {props.journal.entry}{" "}
+        {props.journal.email === email ? (
+          <>
+            <button onClick={() => navigate(`/edit/${props.journal._id}`)}>
+              {" "}
+              Edit{" "}
+            </button>
 
-      {console.log(props.journal)}
-      {props.journal.email === email ? (
-        <td>
-          <Link to={`/edit/${props.journal._id}`}> Edit </Link>
-
-          <button
-            onClick={() => {
-              props.deleteJournal(props.journal._id);
-            }}
-          >
-            {" "}
-            Delete{" "}
-          </button>
-        </td>
-      ) : (
-        <></>
-      )}
+            <button
+              onClick={() => {
+                props.deleteJournal(props.journal._id);
+              }}
+            >
+              Delete
+            </button>
+          </>
+        ) : (
+          <></>
+        )}{" "}
+      </td>
     </tr>
   );
 
@@ -85,19 +89,47 @@ export default function JournalList() {
   };
 
   return (
-    <div>
-      <h2> List of the Journals! </h2>
+    <div style={container}>
+      <h2 style={title}> List of the Journals! </h2>
 
-      <table>
-        <thead>
+      <table style={table}>
+        <thead style={thead}>
           <tr>
             <th>Name</th>
             <th>Entry</th>
           </tr>
         </thead>
 
-        <tbody> {journalList()} </tbody>
+        <tbody>{journalList()} </tbody>
       </table>
     </div>
   );
 }
+
+const container = {
+  flex: 1,
+  textAlign: "center",
+  backgroundColor: "#E1FFFF",
+  height: "calc(100vh - 60px)",
+};
+
+const title = {
+  color: "#009879",
+  marginBottom: "50px",
+};
+
+const table = {
+  width: "60%",
+  marginLeft: "auto",
+  marginRight: "auto",
+  boxShadow: "0 0 40px rgba(0, 0, 0, 0.15)",
+  borderBottom: "2px solid #009879",
+  borderRadius: "10px",
+  overflow: "hidden",
+};
+
+const thead = {
+  backgroundColor: "#009879",
+  color: "#ffffff",
+  textAlign: "center",
+};

@@ -59,8 +59,8 @@ export default function Add() {
   }
   if (logged) {
     return (
-      <div>
-        <h2> Create a New Journal Entry! </h2>
+      <div style={container}>
+        <h2 style={title}> Create a New Journal Entry! </h2>
 
         <form onSubmit={submitForm}>
           <div>
@@ -93,3 +93,15 @@ export default function Add() {
     return <div>Please Log In before you can add a journal entry!</div>;
   }
 }
+
+const container = {
+  flex: 1,
+  textAlign: "center",
+  backgroundColor: "#E1FFFF",
+  height: "calc(100vh - 60px)",
+};
+
+const title = {
+  color: "#009879",
+  marginBottom: "50px",
+};

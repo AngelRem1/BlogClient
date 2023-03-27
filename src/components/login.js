@@ -23,51 +23,78 @@ const Login = () => {
   };
 
   return (
-    <>
-      <main>
-        <section>
-          <div>
-            <h1> Sign In To Start Making Blog Post! </h1>
+    <div style={container}>
+      <h2 style={title}> Login to Start Making Blog Post! </h2>
 
-            <form>
-              <div>
-                <label htmlFor="email-address">Email address</label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="Email address"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+      <form>
+        <div style={field}>
+          <div style={fieldName}> Email Address </div>
+          <input
+            style={fieldInput}
+            id="email-address"
+            name="email"
+            type="email"
+            required
+            placeholder="Email address"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
+        <div style={field}>
+          <div style={fieldName}> Password </div>
+          <input
+            style={fieldInput}
+            id="password"
+            name="password"
+            type="password"
+            required
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-              <div>
-                <button onClick={onLogin}>Login</button>
-              </div>
-            </form>
+        <button style={loginButton} onClick={onLogin}>
+          Login
+        </button>
+      </form>
 
-            <p>
-              No account yet? <NavLink to="/signup">Sign up</NavLink>
-            </p>
-          </div>
-        </section>
-      </main>
-    </>
+      <p>
+        No account yet? <NavLink to="/signup">Sign up</NavLink>
+      </p>
+    </div>
   );
 };
 
-// className="text-sm text-white text-center"
+const container = {
+  flex: 1,
+  textAlign: "center",
+  backgroundColor: "#E1FFFF",
+  height: "calc(100vh - 60px)",
+};
+
+const title = {
+  color: "#009879",
+  marginBottom: "50px",
+};
+
+const field = {
+  marginBottom: "1em",
+};
+
+const fieldName = {
+  color: "#009879",
+};
+
+const fieldInput = {
+  borderRadius: "10px",
+  borderWidth: "thin",
+};
+
+const loginButton = {
+  backgroundColor: "#ffffff",
+  color: "black",
+  border: "2px solid #4CAF50",
+  borderRadius: "5px",
+};
+
 export default Login;
