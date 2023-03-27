@@ -63,9 +63,10 @@ export default function Add() {
         <h2 style={title}> Create a New Journal Entry! </h2>
 
         <form onSubmit={submitForm}>
-          <div>
-            <label> Name </label>
+          <div style={field}>
+            <div style={fieldName}> Name </div>
             <input
+              style={fieldInput}
               type="text"
               id="name"
               value={form.name}
@@ -73,9 +74,10 @@ export default function Add() {
             />
           </div>
 
-          <div>
-            <label> Form </label>
+          <div style={field}>
+            <div style={fieldName}> Entry </div>
             <input
+              style={fieldInput}
               type="text"
               id="entry"
               value={form.entry}
@@ -83,9 +85,7 @@ export default function Add() {
             />
           </div>
 
-          <div>
-            <input type="submit" value="Create journal" />
-          </div>
+          <input style={submitButton} type="submit" value="Create journal" />
         </form>
       </div>
     );
@@ -104,4 +104,24 @@ const container = {
 const title = {
   color: "#009879",
   marginBottom: "50px",
+};
+
+const field = {
+  marginBottom: "1em",
+};
+
+const fieldName = {
+  color: "#009879",
+};
+
+const fieldInput = {
+  borderRadius: "10px",
+  borderWidth: "thin",
+};
+
+const submitButton = {
+  backgroundColor: "#ffffff",
+  color: "black",
+  border: "2px solid #4CAF50",
+  borderRadius: "5px",
 };

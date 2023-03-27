@@ -64,13 +64,14 @@ export default function Edit() {
   }
 
   return (
-    <div>
-      <h2> Update Journal </h2>
+    <div style={container}>
+      <h2 style={title}> Update Journal </h2>
 
       <form onSubmit={submitForm}>
-        <div>
-          <label> Name </label>
+        <div style={field}>
+          <div style={fieldName}> Name </div>
           <input
+            style={fieldInput}
             type="text"
             id="name"
             value={form.name}
@@ -78,9 +79,10 @@ export default function Edit() {
           />
         </div>
 
-        <div>
-          <label> Form </label>
+        <div style={field}>
+          <div style={fieldName}> Form </div>
           <input
+            style={fieldInput}
             type="text"
             id="entry"
             value={form.entry}
@@ -88,10 +90,40 @@ export default function Edit() {
           />
         </div>
 
-        <div>
-          <input type="submit" value="Update journal" />
-        </div>
+        <input style={submitButton} type="submit" value="Update journal" />
       </form>
     </div>
   );
 }
+
+const container = {
+  flex: 1,
+  textAlign: "center",
+  backgroundColor: "#E1FFFF",
+  height: "calc(100vh - 60px)",
+};
+
+const title = {
+  color: "#009879",
+  marginBottom: "50px",
+};
+
+const field = {
+  marginBottom: "1em",
+};
+
+const fieldName = {
+  color: "#009879",
+};
+
+const fieldInput = {
+  borderRadius: "10px",
+  borderWidth: "thin",
+};
+
+const submitButton = {
+  backgroundColor: "#ffffff",
+  color: "black",
+  border: "2px solid #4CAF50",
+  borderRadius: "5px",
+};
