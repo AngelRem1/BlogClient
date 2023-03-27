@@ -15,6 +15,7 @@ export default function JournalList() {
         setEmail(user.email);
       } else {
         console.log("user is logged out");
+        setEmail("");
       }
     });
   }, []);
@@ -47,12 +48,15 @@ export default function JournalList() {
         {props.journal.entry}{" "}
         {props.journal.email === email ? (
           <>
-            <button onClick={() => navigate(`/edit/${props.journal._id}`)}>
-              {" "}
-              Edit{" "}
+            <button
+              style={buttons}
+              onClick={() => navigate(`/edit/${props.journal._id}`)}
+            >
+              Edit
             </button>
 
             <button
+              style={buttons}
               onClick={() => {
                 props.deleteJournal(props.journal._id);
               }}
@@ -132,4 +136,12 @@ const thead = {
   backgroundColor: "#009879",
   color: "#ffffff",
   textAlign: "center",
+};
+
+const buttons = {
+  backgroundColor: "#ffffff",
+  color: "black",
+  border: "1px solid #4CAF50",
+  marginRight: "8px",
+  borderRadius: "8px",
 };
